@@ -7,13 +7,34 @@ use Rack::Session::Cookie, {
   expire_after: 86400 # seconds
 }
 
-get '/' do
-  if session[:random_number].nil?
-    session[:random_number] = rand(101)
-  else
-    session[:random_number]
-  end
+SECRET_NUMBER = rand(101)
 
-  number = session[:random_number]
-  erb :index, :locals => {:number => number}
+get '/' do
+  guess = params["guess"].to_i
+  message = check_guess(guess)
+  erb :index, :locals => {:number => SECRET_NUMBER, :message => message}
+end
+
+get '/replay' do
+  session.clear
+  SECRET_NUMBER = rand(101)
+  redirect '/'
+end
+
+def check_guess(guess)
+  difference = SECRET_NUMBER - guess
+
+  if difference == SECRET_NUMBER
+    "Let's begin!"
+  elsif difference == 0
+    "You got it right! Go you!"
+  elsif difference > 0 && difference.abs >= 5
+    "Way too low!"
+  elsif difference < 0 && difference.abs >= 5
+    "Way too high!"
+  elsif difference > 0
+    "Too low!"
+  elsif difference < 0
+    "Too high!"
+  end
 end

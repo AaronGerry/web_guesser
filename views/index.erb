@@ -2,13 +2,47 @@
 <html>
   <head>
     <title>Number Guesser</title>
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
   </head>
 
   <body>
-    <h1>Let's play a game...</h1>
-    <p>
-      Your random number is: <%= number %>
-    </p>
-  </body>
+    <div class="top-bar">
+      <h1>Let's play a game...</h1>
+    </div>
 
+    <br>
+
+    <div class="small-12 medium-4 columns small-centered large-centered text-center">
+      <div class="callout primary">
+        <div class="float-center">
+          <h3>Time for you to guess!...</h3>
+        </div>
+        <form>
+          <label>a number between 0-100:
+            <input type="text" name="guess" />
+            <input type="submit" value="submit my guess!" />
+          </label>
+        </form>
+      </div>
+    </div>
+
+    <div class="small-12 medium-4 columns small-centered large-centered text-center">
+      <div class="callout primary">
+        <p>
+          <%= message %>
+        </p>
+        <p>
+          <% if message == "You got it right! Go you!" %>
+            (Your SECRET number is: <%= number %>)
+
+            <br>
+            
+            <a href="/replay">Want to play again?</a>
+          <% end %>
+        </p>
+      </div>
+    </div>
+
+  </body>
 </html>
