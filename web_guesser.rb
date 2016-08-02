@@ -32,9 +32,9 @@ def check_guess(guess)
     "Way too low!"
   elsif difference < 0 && difference.abs >= 5
     "Way too high!"
-  elsif difference > 0
+  elsif difference > 0 && difference.abs < 5
     "Too low!"
-  elsif difference < 0
+  elsif difference < 0 && difference.abs > 5
     "Too high!"
   end
 end

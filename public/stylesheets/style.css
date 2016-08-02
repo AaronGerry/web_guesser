@@ -1,7 +1,27 @@
+body {
+  background-image: url("/images/kinai.png");
+  background-color: #596469;
+}
+
 .top-bar h1 {
   text-align: center;
+  background-color: #797FBD;
+  color: white;
 }
 
 h3 {
   color: #351c75;
 }
+
+.callout {
+  background-color: #def0fc;
+  }
+  .callout.results.way {
+    background-color: #DF6CA7;
+  }
+  .callout.results.close {
+    background-color: #9DD298;
+  }
+  .callout.results.win {
+    background-color: #8BDBE8;
+  }
