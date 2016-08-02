@@ -10,6 +10,10 @@ use Rack::Session::Cookie, {
 get '/' do
   if session[:random_number].nil?
     session[:random_number] = rand(101)
+  else
+    session[:random_number]
   end
-  "Your random number is: #{session[:random_number]}"
+
+  number = session[:random_number]
+  erb :index, :locals => {:number => number}
 end
