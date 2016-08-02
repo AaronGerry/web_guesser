@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'sinatra/reloader'
 require 'pry'
 
 use Rack::Session::Cookie, {
@@ -7,5 +8,8 @@ use Rack::Session::Cookie, {
 }
 
 get '/' do
-  "Hello, World!"
+  if session[:random_number].nil?
+    session[:random_number] = rand(101)
+  end
+  "Your random number is: #{session[:random_number]}"
 end
