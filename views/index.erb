@@ -33,6 +33,12 @@
           You have <%= number_of_guesses %> guesses remaining
         </p>
 
+        <p>
+          <% if cheat_mode == "true" %>
+            (Your SECRET number is: <%= number %>)
+          <% end %>
+        </p>
+
         <% if number_of_guesses > 0 %>
           <p>
             <% if message == "Let's begin!" %>

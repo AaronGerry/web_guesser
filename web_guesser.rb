@@ -13,9 +13,10 @@ SECRET_NUMBER = rand(101)
 get '/' do
   guess = params["guess"].to_i
   message = check_guess(guess)
+  cheat_mode = params["cheat"]
   @@number_of_guesses -= 1
 
-  erb :index, :locals => {:number => SECRET_NUMBER, :message => message, :number_of_guesses => @@number_of_guesses, :difference => @difference}
+  erb :index, :locals => {:number => SECRET_NUMBER, :message => message, :number_of_guesses => @@number_of_guesses, :difference => @difference, :cheat_mode => cheat_mode}
 end
 
 get '/replay' do
@@ -28,11 +29,11 @@ end
 def check_guess(guess)
   @difference = SECRET_NUMBER - guess
 
-  if @difference == SECRET_NUMBER
+  if @difference == SECRET_NUMBER && guess != 0
     "Let's begin!"
   elsif @difference == 0
     "You got it right! Go you!"
-  elsif @difference > 0
+  elsif @difference >= 0
     if @difference.abs > 5
       "Way too low!"
     else
