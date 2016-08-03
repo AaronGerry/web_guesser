@@ -30,33 +30,45 @@
     <div class="small-12 medium-4 columns small-centered large-centered text-center">
       <div class="callout">
         <p>
-          <% if message == "Let's begin!" %>
-            <%= message %>
-          <% elsif message == "You got it right! Go you!" %>
-            <div class="callout results win">
-              <%= message %>
-            </div>
-          <% elsif message == "Way too low!" || message == "Way too high!" %>
-            <div class="callout results way">
-              <%= message %>
-            </div>
-          <% elsif message = "Too low!" || message == "Too high!" %>
-            <div class="callout results close">
-              <%= message %>
-            </div>
-          <% end %>
+          You have <%= number_of_guesses %> guesses remaining
         </p>
-        <p>
-          <% if message == "You got it right! Go you!" %>
-            (Your SECRET number is: <%= number %>)
+
+        <% if number_of_guesses > 0 %>
+          <p>
+            <% if message == "Let's begin!" %>
+              <%= message %>
+            <% elsif message == "You got it right! Go you!" %>
+              <div class="callout results win">
+                <%= message %>
+              </div>
+
+              (Your SECRET number is: <%= number %>)
+
+              <br>
+
+              <a href="/replay">Want to play again?</a>
+
+            <% elsif message == "Way too low!" || message == "Way too high!" %>
+              <div class="callout results way">
+                <%= message %>
+              </div>
+            <% elsif message == "Too low!" || message == "Too high!" %>
+              <div class="callout results close">
+                <%= message %>
+              </div>
+            <% end %>
+          </p>
+        <% else %>
+          <p>
+            Sorry. You're all out of guesses!
 
             <br>
 
             <a href="/replay">Want to play again?</a>
-          <% end %>
+          </p>
+        <% end %>
+        <p>
         </p>
       </div>
-    </div>
-
   </body>
 </html>

@@ -8,33 +8,41 @@ use Rack::Session::Cookie, {
 }
 
 SECRET_NUMBER = rand(101)
+@@number_of_guesses = 6
 
 get '/' do
   guess = params["guess"].to_i
   message = check_guess(guess)
-  erb :index, :locals => {:number => SECRET_NUMBER, :message => message}
+  @@number_of_guesses -= 1
+
+  erb :index, :locals => {:number => SECRET_NUMBER, :message => message, :number_of_guesses => @@number_of_guesses, :difference => @difference}
 end
 
 get '/replay' do
   session.clear
   SECRET_NUMBER = rand(101)
+  @@number_of_guesses = 6
   redirect '/'
 end
 
 def check_guess(guess)
-  difference = SECRET_NUMBER - guess
+  @difference = SECRET_NUMBER - guess
 
-  if difference == SECRET_NUMBER
+  if @difference == SECRET_NUMBER
     "Let's begin!"
-  elsif difference == 0
+  elsif @difference == 0
     "You got it right! Go you!"
-  elsif difference > 0 && difference.abs >= 5
-    "Way too low!"
-  elsif difference < 0 && difference.abs >= 5
-    "Way too high!"
-  elsif difference > 0 && difference.abs < 5
-    "Too low!"
-  elsif difference < 0 && difference.abs > 5
-    "Too high!"
+  elsif @difference > 0
+    if @difference.abs > 5
+      "Way too low!"
+    else
+      "Too low!"
+    end
+  elsif @difference < 0
+    if @difference.abs > 5
+      "Way too high!"
+    else
+      "Too high!"
+    end
   end
 end
